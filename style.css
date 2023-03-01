@@ -1,0 +1,32 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+#calculator{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    place-content: center;
+    gap:5px;
+    box-shadow: inset;
+    width:300px;
+    height:450px;
+}
+
+.calc-btn{
+    text-align: center;
+    font-size: 24px;
+    box-shadow: 0 0 3px 1px lightgray;
+    padding: 20px 30px;
+    margin: 3px;
+}
+
+#display{
+    grid-column: 1 / span 4;
+    text-align: right;
+    min-height: 25px;
+}
+
+#equals{
+    grid-column: 1 / span 4;
+}
