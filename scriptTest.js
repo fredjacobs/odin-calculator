@@ -1,17 +1,15 @@
 const display = document.getElementById('display');
 const buttons = document.querySelectorAll('.calc-btn');
 const clearBtn = document.getElementById('clear');
+const delBtn = document.getElementById('delete');
 
 let firstNum = '';
 let secondNum = '';
 let operator = '';
 let answer = '';
 
-function calculate(calcType, num1, num2){
-    
-
-}
-
+let isAddingToFirstStr = false;
+let isAddingToSecondStr = false;
 
 function operate(operator, num1, num2){
     switch (operator) {
@@ -33,7 +31,7 @@ function operate(operator, num1, num2){
         default:
             break;
     }
-    console.log(answer);
+ 
     return answer;
     
 
@@ -41,8 +39,6 @@ function operate(operator, num1, num2){
 
 function getInput(inputValue){
     let input = inputValue.target.innerText;
-
-    console.log(input);
 
     if(input === 'C'){
         firstNum = '';
@@ -54,10 +50,14 @@ function getInput(inputValue){
 
     if (inputValue.target.classList.contains('num-field')){
         if (operator == ''){
+            isAddingToFirstStr = true;
+            isAddingToSecondStr = false;
             firstNum += input;
             display.innerText = firstNum;
             
         }else if (firstNum != '') {
+            isAddingToFirstStr = false;
+            isAddingToSecondStr = true;
             display.innerText = '';
             secondNum += input;
             display.innerText = secondNum;
@@ -89,4 +89,17 @@ function getInput(inputValue){
       
 }
 
+function deleteChar(){
+   // isAddingToFirstStr ? firstNum = firstNum.slice(0, -1) : secondNum = secondNum.slice(0, -1);
+   if(isAddingToFirstStr){
+    firstNum = firstNum.slice(0,-1);
+    display.innerText = firstNum;
+   }else if(isAddingToSecondStr){
+    secondNum = secondNum.slice(0,-1);
+    display.innerText = secondNum;
+   }
+    
+}
+
+delBtn.addEventListener('click', deleteChar);
 buttons.forEach(el => el.addEventListener('click', getInput));
