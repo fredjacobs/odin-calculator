@@ -25,6 +25,11 @@ function operate(operator, num1, num2){
             break;
 
         case '÷':
+           if(num1 == '0' || num2 == '0' ){
+            clearFields();
+            return answer = 'Rabbit Hole :)';
+
+           } 
             answer = num1 / num2;
             break;
     
@@ -41,11 +46,7 @@ function getInput(inputValue){
     let input = inputValue.target.innerText;
 
     if(input === 'C'){
-        firstNum = '';
-        secondNum = '';
-        operator = '';
-        answer = '';
-        display.innerText = '';
+        clearFields();
     }
 
     if (inputValue.target.classList.contains('num-field')){
@@ -89,13 +90,21 @@ function getInput(inputValue){
       
 }
 
+function clearFields(){
+        firstNum = '';
+        secondNum = '';
+        operator = '';
+        answer = '';
+        display.innerText = '';
+}
+
 function deleteChar(){
-   // isAddingToFirstStr ? firstNum = firstNum.slice(0, -1) : secondNum = secondNum.slice(0, -1);
+   
    if(isAddingToFirstStr){
-    firstNum = firstNum.slice(0,-1);
+     firstNum = firstNum.slice(0,-1);
     display.innerText = firstNum;
    }else if(isAddingToSecondStr){
-    secondNum = secondNum.slice(0,-1);
+     secondNum = secondNum.slice(0,-1);
     display.innerText = secondNum;
    }
     
