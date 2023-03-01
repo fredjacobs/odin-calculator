@@ -80,6 +80,10 @@ function getInput(inputValue){
     
     if(input === '=')
     {
+        if(operator == '' || firstNum == '' || secondNum == ''){
+            return;
+        }
+
         display.innerText = operate(operator, +firstNum, +secondNum);
     }
       
