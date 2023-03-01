@@ -1,13 +1,12 @@
 body{
-    background: #b0b0b0;
+    background-color: black;
 }
 
 .container{
     display: flex;
     justify-content: center;
     
-   
-    
+ 
 }
 
 #calculator{
@@ -15,9 +14,10 @@ body{
     grid-template-columns: auto auto auto auto;
     place-content: center;
     gap:5px;
-    box-shadow: inset;
-    width:300px;
-    height:450px;
+    background: #b0b0b0;
+    padding: 15px;;
+    box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+    border-radius: 10px;
 }
 
 .calc-btn{
@@ -28,7 +28,7 @@ body{
     background: #fff;
     border: 0;
     box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
-    border-radius: 10px;;
+    border-radius: 10px;
 }
 
 #display{
@@ -39,4 +39,9 @@ body{
 
 #equals{
     grid-column: 1 / span 3;
+}
+
+.operator-field, #equals, #display, #clear, #dot, #delete{
+    background-color: rgb(54, 54, 54);
+    color:#fff;
 }
