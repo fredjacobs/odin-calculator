@@ -1,58 +1,42 @@
 const display = document.getElementById('display');
 const buttons = document.querySelectorAll('.calc-btn');
 const clearBtn = document.getElementById('clear');
+const delBtn = document.getElementById('delete');
 
 let firstNum = '';
 let secondNum = '';
 let operator = '';
 let answer = '';
 
-function calculate(calcType, num1, num2){
-    
-
-}
-
-function add(num1, num2){
-    answer = num1 + num2;
-    return answer;
-}
-
-function subtract(num1, num2){
-    answer = num1 - num2;
-    return answer;
-}
-
-function multiply(num1, num2){
-    answer = num1 * num2;
-    return answer;
-}
-
-function divide(num1, num2){
-    answer = num1 / num2;
-    return answer;
-}
+let isAddingToFirstStr = false;
+let isAddingToSecondStr = false;
 
 function operate(operator, num1, num2){
     switch (operator) {
         case '+':
-            add(+num1, +num2);
+            answer = num1 + num2;
             break;
         case '-':
-            subtract(+num1, +num2);
+            answer = num1 - num2;
             break;
 
         case 'x':
-            multiply(+num1, +num2);
+            answer = num1 * num2;
             break;
 
         case '÷':
-            divide(+num1, +num2);
+           if(num1 == '0' || num2 == '0' ){
+            clearFields();
+            return answer = 'Rabbit Hole :)';
+
+           } 
+            answer = num1 / num2;
             break;
     
         default:
             break;
     }
-    console.log(answer);
+ 
     return answer;
     
 
@@ -61,22 +45,20 @@ function operate(operator, num1, num2){
 function getInput(inputValue){
     let input = inputValue.target.innerText;
 
-    console.log(input);
-
     if(input === 'C'){
-        firstNum = '';
-        secondNum = '';
-        operator = '';
-        answer = '';
-        display.innerText = '';
+        clearFields();
     }
 
     if (inputValue.target.classList.contains('num-field')){
         if (operator == ''){
+            isAddingToFirstStr = true;
+            isAddingToSecondStr = false;
             firstNum += input;
             display.innerText = firstNum;
             
         }else if (firstNum != '') {
+            isAddingToFirstStr = false;
+            isAddingToSecondStr = true;
             display.innerText = '';
             secondNum += input;
             display.innerText = secondNum;
@@ -87,7 +69,7 @@ function getInput(inputValue){
         
         if(firstNum != '' && secondNum != '' && operator != ''){
             
-            answer = operate(operator, firstNum, secondNum);
+            answer = operate(operator, +firstNum, +secondNum);
             display.innerText = answer;
             firstNum = answer;
             secondNum = '';
@@ -99,9 +81,34 @@ function getInput(inputValue){
     
     if(input === '=')
     {
-        display.innerText = operate(operator, firstNum, secondNum);
+        if(operator == '' || firstNum == '' || secondNum == ''){
+            return;
+        }
+
+        display.innerText = operate(operator, +firstNum, +secondNum);
     }
       
 }
 
+function clearFields(){
+        firstNum = '';
+        secondNum = '';
+        operator = '';
+        answer = '';
+        display.innerText = '';
+}
+
+function deleteChar(){
+   
+   if(isAddingToFirstStr){
+     firstNum = firstNum.slice(0,-1);
+    display.innerText = firstNum;
+   }else if(isAddingToSecondStr){
+     secondNum = secondNum.slice(0,-1);
+    display.innerText = secondNum;
+   }
+    
+}
+
+delBtn.addEventListener('click', deleteChar);
 buttons.forEach(el => el.addEventListener('click', getInput));
